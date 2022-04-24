@@ -28,7 +28,8 @@ router.post('/login', async(req, res) => {
     const user = await  User.findOne({ username: req.body.username });
     !user && res.status(401).json("no user found!");
     const hashpassword = Cryptojs.AES.decrypt(user.password, process.env.SECRET_KEY).toString(Cryptojs.enc.Utf8);
-
+console.log(req.socket.remoteAddress)
+console.log(req.ip)
     if (hashpassword !== req.body.password) return res.status(401).send("incorrect username or password!");
 
     else {
